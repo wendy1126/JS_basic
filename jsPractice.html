@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+
+</head>
+
+<body class="dark">
+
+    <div class="black-bg">
+        <div class="white-bg">
+            <h4>로그인하세요</h4>
+
+            <form action="success.html">
+                <div class="my-3">
+                    <input type="text" class="form-control" id="email">
+                </div>
+                <div class="my-3">
+                    <input type="password" class="form-control" id="pw">
+                </div>
+                <button type="submit" class="btn btn-primary" id="send">전송</button>
+                <button type="button" class="btn btn-danger" id="close">닫기</button>
+            </form>
+
+        </div>
+    </div>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <span class="navbar-brand">자바스크립트</span>
+            <span class="badge bg-dark">Dark 🔁</span>
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </nav>
+
+    <ul class="list-group">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+    </ul>
+
+    <div class="alert alert-danger">
+        <span id="num">5</span>초 이내 구매시 사은품 증정!
+    </div>
+
+    <div class="main-bg">
+        <h4>Shirts on Sale</h4>
+        <button id="login" class="btn btn-primary">로그인</button>
+    </div>
+
+    <div class="lorem" style="width: 200px; height: 100px; overflow-y: scroll;">Lorem ipsum dolor sit amet consectetur
+        adipisicing elit. Saepe optio quasi ipsam vel, voluptatem porro, eaque omnis consequatur autem aut esse
+        distinctio facilis repudiandae ex aliquid reiciendis at accusantium recusandae?Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Saepe optio quasi ipsam vel, voluptatem porro, eaque omnis consequatur autem aut
+        esse distinctio facilis repudiandae ex aliquid reiciendis at accusantium recusandae?</div>
+
+    <div>
+        <div class="slide-container">
+
+            <div class="slide-box">
+                <img src="car1.png">
+            </div>
+
+            <div class="slide-box">
+                <img src="car2.png">
+            </div>
+
+            <div class="slide-box">
+                <img src="car3.png">
+            </div>
+
+        </div>
+    </div>
+
+    <button class="previous">이전</button>
+    <button class="slide-1">1</button>
+    <button class="slide-2">2</button>
+    <button class="slide-3">3</button>
+    <button class="next">다음</button>
+
+    <div style="height: 1000px;"></div>
+
+
+
+
+    <script>
+        // document.querySelector('.클래스명') //querySelector 사용법 but, 맨 위에 나오는 한개만 찾아줌
+        // document.querySelectorAll('.클래스명')[indexing] //클래스해당하는 모든 요소 다 찾아옴
+        // document.querySelector('#아이디명') //querySelector 사용법
+
+        //nav bar 토글 열고 닫기
+        document.getElementsByClassName('navbar-toggler')[0].addEventListener('click', function () {
+            document.getElementsByClassName('list-group')[0].classList.toggle('show');
+        }) //toggle : ('클래스')가 있으면 제거, 없으면 추가하라는 뜻
+
+        //메인 로그인 버튼 클릭 시 모달창 띄우기
+        document.querySelector('#login').addEventListener('click', function () {
+            document.querySelector('.black-bg').classList.add('show-modal');
+        })
+
+        //모달창 닫기 버튼 클릭시 모달창 닫기
+        document.querySelector('#close').addEventListener('click', function () {
+            document.querySelector('.black-bg').classList.remove('show-modal');
+        })
+
+        //모달창 전송 버튼 클릭시 input에 입력한 값이 공백이면 alert 띄우기
+        document.querySelector('#send').addEventListener('click', function (e) {
+            var 입력한값 = document.getElementById('email').value;
+            var 비번 = document.getElementById('pw').value;
+
+
+            if (입력한값 == '') {
+                alert('이메일입력안함');
+                e.preventDefault()
+            } //폼 전송 막는 함수
+
+            else if (/\S+@\S+\.\S+/.test(입력한값)) {
+                alert('이메일형식아님');
+                e.preventDefault()
+            }
+            //⭐😒⭐😒이거 왜 안되고 지랄
+
+
+            else if (비번 == '') {
+                alert('비번입력안함');
+                e.preventDefault()
+            }
+            else if (비번.length < 6) {
+                alert('비번6자이상입력');
+                e.preventDefault()
+            }
+            else if (/[A-Z]/.test(비번) == false) {
+                alert('비번에 대문자없는데요');
+                e.preventDefault()
+            }
+        })
+
+        //input:<input>에 입력한 값이 바뀌 때 발생, change:<input>에 입력한 값이 바뀌고, 포커스를 잃을 때 발생
+        document.getElementById('email').addEventListener('input', function () {
+            console.log('안녕');
+        })
+
+        //버튼 클릭 횟수가 홀수면 Light, 짝수면 Dark로 바뀌는 코드
+        var count = 0;
+
+        document.querySelector('.badge').addEventListener('click', function () {
+            count++;
+            if (count % 2 == 1) {
+                document.querySelector('.badge').innerHTML = 'Light 🔁';
+            } else {
+                document.querySelector('.badge').innerHTML = 'Dark 🔁';
+            }
+        })
+
+        //X초 후 코드 실행하기(5초 후 alert 사라지게)
+        setTimeout(function () {
+            document.querySelector('.alert').style.display = 'none';
+        }, 5000)
+
+        //X초 마다 코드 실행하기(1초마다 숫자 다운되게)
+        var count = 5;
+        setInterval(function () {
+            count--;
+            if (count >= 0) {
+                document.querySelector('#num').innerHTML = count;
+            }
+        }, 1000)
+        // setInterval(함수,500000)
+        // function 함수(){
+        //     console.log('안녕');
+        // }
+
+        //이미지 슬라이드 만들기 ⭐⭐⭐⭐⭐ 이전/다음버튼 다시 만들어보기
+        document.querySelector('.slide-1').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(0vw)';
+        })
+        document.querySelector('.slide-2').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-100vw)';
+        })
+        document.querySelector('.slide-3').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-200vw)';
+        })
+
+        var 지금사진 = 0;
+        document.querySelector('.next').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-' + 지금사진 + '00vw)';
+            지금사진++;
+        })
+        var 지금사진 = 0;
+        document.querySelector('.previous').addEventListener('click', function () {
+            document.querySelector('.slide-container').style.transform = 'translateX(-' + 지금사진 + '00vw)';
+            지금사진--;
+        })
+
+        //div의 스크롤바 내린 양+눈에보이는 div박스 높이 == div의 실제높이
+        document.querySelector('.lorem').addEventListener('scroll', function () {
+            var 스크롤양 = document.querySelector('.lorem').scrollTop;
+            var 실제높이 = document.querySelector('.lorem').scrollHeight;
+            var 눈에보이는높이 = document.querySelector('.lorem').clientHeight;
+
+            console.log(스크롤양, 실제높이, 눈에보이는높이);
+            if(스크롤양 + 눈에보이는높이 > 실제높이 - 100) {
+                alert('다읽음')
+            }
+        })
+        //document.querySelector('html').scrollHeight :현재페이지 실제높이
+        //window.scrollY : 현재 페이지 스크롤양(=document.querySelector('html').scrollTop;)
+
+        //페이지 스크롤바 100이상 내리면 로고 폰트사이즈 줄이셈 
+        window.addEventListener('scroll',function(){
+            if(window.scrollY>100){
+                document.querySelector('.navbar-brand').style.fontSize = '20px';
+            }else {
+                document.querySelector('.navbar-brand').style.fontSize = '30px';
+            }
+        })
+
+        //까만 배경 눌렀을때 모달창 닫는 기능(이벤트 관련 함수, 이벤트 버블링 막는 함수 사용함⭐)
+        document.querySelector('.black-bg').addEventListener('click',function(e){
+            // e.target; //유저가 실제로 누른거
+            // console.log(e.target); 
+            // e.currentTarget; //이벤트리스너 달린 곳(=this;)
+            // e.preventDefault(); //(클릭)안한 것 처럼 동작해주세요.이벤트 기본동작 막아줌
+            // e.stopPropagation(); //상위요소로 퍼지는 이벤트 버블링 막아줌
+
+            //내가 실제로 누른게 까만배경이면 모달창 닫아주세요
+            // console.log(e.target);
+            // console.log(document.querySelector('.black-bg'));
+            if(e.target == document.querySelector('.black-bg')){
+                document.querySelector('.black-bg').classList.remove('show-modal');
+            }      
+        })
+
+
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

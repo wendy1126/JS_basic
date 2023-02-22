@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+
+<body>
+    <style>
+        ul.list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        ul.list::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .tab-button {
+            display: block;
+            padding: 10px 20px 10px 20px;
+            float: left;
+            margin-right: -1px;
+            margin-bottom: -1px;
+            color: grey;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .orange {
+            border-top: 2px solid orange;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid white;
+            border-left: 1px solid #ccc;
+            color: black;
+            margin-top: -2px;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 10px;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /* 상품 셀렉트 시 사이즈 셀렉트 하나 더 생성 시작 */
+        .form-hide {
+            display: none;
+        }
+
+        /* 상품 셀렉트 시 사이즈 셀렉트 하나 더 생성 끝 */
+    </style>
+
+    <div class="container mt-3">
+        <div class="card p-3">
+            <span class="car-title">상품명</span>
+            <span class="car-price">가격</span>
+        </div>
+    </div>
+
+    <form class="container my-5 form-group">
+        <p>상품선택</p>
+        <select class="form-select mt-2">
+            <option>모자</option>
+            <option>셔츠</option>
+            <option>바지</option>
+        </select>
+        <select class="form-select mt-2 form-hide">
+            <option>95</option>
+            <option>100</option>
+        </select>
+    </form>
+
+    <div id="test">
+        <h4>반가워</h4>
+    </div>
+
+    <div class="container mt-5">
+        <ul class="list">
+            <li class="tab-button" data-id="0">Products</li>
+            <!--html태그에 몰래 정보 숨기기가능 data-자료이름="값", 숨겻던 자료 출력은 document.querySelector('.tab-button').dataset.id 를 콘손창에입력-->
+            <li class="tab-button orange" data-id="1">Information</li>
+            <li class="tab-button" data-id="2">Shipping</li>
+        </ul>
+        <div class="tab-content">
+            <p>상품설명입니다. Product</p>
+        </div>
+        <div class="tab-content show">
+            <p>스펙설명입니다. Information</p>
+        </div>
+        <div class="tab-content">
+            <p>배송정보입니다. Shipping</p>
+        </div>
+    </div>
+
+
+    <script>
+        //test, js로 html 추가 생성법(1)
+        // var a=document.createElement('p');
+        // a.innerHTML='안녕';
+        // document.querySelector('#test').appendChild(a);
+
+        //test, js로 html 추가 생성법(2)
+        // var 템플릿 = '<p>안녕</p>';
+        // document.querySelector('#test').insertAdjacentHTML('beforeend',템플릿);
+
+        //test, js로 html 갈아치우는 법(3)
+        // var 템플릿 = '<p>안녕</p>';
+        // document.querySelector('#test').innerHTML = 템플릿;
+
+
+        //상품명과 가격 변수에 담기, 변수 하나에 여러자료 저장가능(array자료형)
+        var car = ['소나타', 50000, 'white'];
+        car[0] = '아반떼'; //자료 수정하는 법
+        console.log(car[0]); //자료 꺼내기
+
+        car.sort();  //자료 정렬하는 함수(숫자,영어,한글 순으로)
+        console.log(car);
+
+        console.log(car.slice(1, 3)); //1번째부터 3번째 전까지 자르기
+
+        //object 자료형(이름:key 붙여서 자료:value 저장가능)
+        var car2 = { name: '소나타', price: [50000, 3000, 4000] }
+        // car2.price = 60000; //자료 수정하는 법
+        console.log(car2.name); //자료 꺼내기(car2['name']) 해도됨
+
+        //array와 object 차이점
+        //array는 자료간 순서가 존재하여 정렬 가능, object는 이름대로 저장하여 순서개념 없어서 인덱싱 못함
+
+        document.querySelector('.car-title').innerHTML = car2.name;
+        document.querySelector('.car-price').innerHTML = car2.price[0];
+        // console.log(car2.price[2]);
+
+        //상품선택 고르면 <select> 하나 더 보여주기
+        //상품선택에서 바지 누르면 바지 사이즈로 html 교체 되는 코드 추가한 것
+        // document.querySelectorAll('.form-select')[0].addEventListener('input', function () {
+        //     var value = document.querySelectorAll('.form-select')[0].value;
+        //     if (value == '셔츠') {
+        //         document.querySelectorAll('.form-select')[1].classList.remove('form-hide');
+        //     }
+        //     else if (value != '셔츠' && value != '바지') {
+        //         document.querySelectorAll('.form-select')[1].classList.add('form-hide');
+        //     }
+        //     else if (value == '바지') {
+        //         document.querySelectorAll('.form-select')[1].classList.remove('form-hide');
+        //         document.querySelectorAll('.form-select')[1].innerHTML = '';
+        //         var size = `<option>28</option>
+        //         <option>30</option>`;
+        //         document.querySelectorAll('.form-select')[1].insertAdjacentHTML('beforeend', size);
+        //     }
+        // });
+
+        //위 코드 서버에서 받은 데이터 가져와서 데이터 갯수만큼 option 만들기(서버통신아직못하니깐변수로대체)
+        var pants = [28, 30, 32, 34];
+        var shirts = [95, 100, 105];
+
+        document.querySelectorAll('.form-select')[0].addEventListener('input', function () {
+            var value = document.querySelectorAll('.form-select')[0].value;
+            if (value == '셔츠') {
+                document.querySelectorAll('.form-select')[1].classList.remove('form-hide');
+                document.querySelectorAll('.form-select')[1].innerHTML = '';
+                //array자료에만 붙일 수 있는 forEach반복문, 서버에 있는 데이터 받아와서 반복문
+                shirts.forEach(function(shirtsData){
+                    document.querySelectorAll('.form-select')[1].insertAdjacentHTML('beforeend','<option>'+shirtsData+'</option>')
+                })
+            }
+            else if (value != '셔츠' && value != '바지') {
+                document.querySelectorAll('.form-select')[1].classList.add('form-hide');
+            }
+            else if (value == '바지') {
+                document.querySelectorAll('.form-select')[1].classList.remove('form-hide');
+                document.querySelectorAll('.form-select')[1].innerHTML = '';
+                //array자료에만 붙일 수 있는 forEach반복문, 서버에 있는 데이터 받아와서 반복문
+                pants.forEach(function(pantsData){
+                    document.querySelectorAll('.form-select')[1].insertAdjacentHTML('beforeend','<option>'+pantsData+'</option>')
+                })
+            }
+        });
+
+        //(참고)object자료 갯수만큼 반복문 돌리는 예시
+        var obj = {name:'kim', age:20}
+        for(var key in obj){
+            console.log(obj[key]);
+        }
+
+
+    </script>
+
+
+    <script src="tab.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
