@@ -205,8 +205,11 @@
         })
 
         //이미지 슬라이드,마우스로 이미지 움직이기
-        //mousedown(마우스 클릭 다운시이벤트), mouseup(마우스 클릭 업 이벤트)
-         //mousemove(마우스 움직였을때, e.clientX 혹은 Y 사용 시 현재 마우스 X좌표 Y좌표 알려줌)
+        //mousedown(마우스 클릭 다운시이벤트) = touchstart(터치시작시 발동)
+        //mouseup(마우스 클릭 업 이벤트) = touchmove(터치중일시 발동)
+        //mousemove(마우스 움직였을때, e.clientX, Y 사용 시 현재 마우스 X,Y좌표 알려줌) = touchend(터치종료시 발동)
+        //터치이벤트에서 좌표 출력하려면, e.touches[0].clientX; 라고 적어야함
+        //터치 이벤트 중 touchend에서는 e.changedTouches[0].clientX 라고 적어야 함
         // document.querySelectorAll('.slide-box')[0].addEventListener('mousemove', function(e){
         //     console.log(e.clientX);
         // })
@@ -233,6 +236,13 @@
 
         document.querySelectorAll('.slide-box')[0].addEventListener('mouseup', function(e){
             눌렀냐 = false;
+            console.log(e.clientX-시작좌표);
+
+            if(e.clientX-시작좌표 < -100){
+                document.querySelector('.slide-container').style.transform='translateX(-100vw)';
+            }else {
+                document.querySelector('.slide-container').style.transform='translateX(0vw)';
+            }
         })
 
 
